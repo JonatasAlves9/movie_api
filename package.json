@@ -1,0 +1,25 @@
+{
+  "name": "movies_api",
+  "version": "1.0.0",
+  "description": "API for recomendation movies",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jônatas Alves<alvesjonatas99@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "morgan": "^1.10.0",
+    "python-shell": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "tslint": "^6.1.3",
+    "typescript": "^4.5.5"
+  }
+}
