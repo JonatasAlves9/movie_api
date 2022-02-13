@@ -5,7 +5,20 @@ const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
-  PythonShell.run("./scripts/script.py", null, function (err) {
+  let options = {
+    mode: "text",
+    pythonOptions: ["-u"], // get print results in real-time
+    args: ["1414", "2323"],
+  };
+
+  const pyshell = new PythonShell("./scripts/script.py");
+
+  pyshell.on("message", function (message) {
+    const result = message.replace(/'/g, '"');
+    console.log(JSON.parse(result));
+  });
+
+  pyshell.end(function (err, code, signal) {
     if (err) throw err;
     console.log("finished");
   });

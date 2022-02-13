@@ -8,17 +8,7 @@ const python_shell_1 = require("python-shell");
 const app = (0, express_1.default)();
 const port = 3000;
 app.get("/", (req, res) => {
-    let options = {
-        mode: "text",
-        pythonOptions: ["-u"],
-        args: ["1414", "2323"],
-    };
-    const pyshell = new python_shell_1.PythonShell("./scripts/script.py");
-    pyshell.on("message", function (message) {
-        const result = message.replace(/'/g, '"');
-        console.log(JSON.parse(result));
-    });
-    pyshell.end(function (err, code, signal) {
+    python_shell_1.PythonShell.run("./scripts/script.py", null, function (err) {
         if (err)
             throw err;
         console.log("finished");
