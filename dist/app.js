@@ -14,9 +14,11 @@ app.get("/", (req, res) => {
         args: ["1414", "2323"],
     };
     const pyshell = new python_shell_1.PythonShell("./scripts/script.py");
+    let result = "";
     pyshell.on("message", function (message) {
-        const result = message.replace(/'/g, '"');
+        result = message.replace(/'/g, '"');
         console.log(JSON.parse(result));
+        res.send(result);
     });
     pyshell.end(function (err, code, signal) {
         if (err)
