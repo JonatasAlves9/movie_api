@@ -6,13 +6,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const python_shell_1 = require("python-shell");
 const app = (0, express_1.default)();
+app.use(express_1.default.json());
 const port = 3000;
+app.post("/movieRecomendation", (req, res) => {
+    const { movie } = req.body;
+    const pyshell = new python_shell_1.PythonShell("./scripts/script_get_recomendation.py", {
+        args: [movie],
+    });
+    let result = "";
+    pyshell.on("message", function (message) {
+        result = message.replace(/'/g, '"');
+        res.send(result);
+    });
+    pyshell.end(function (err, code, signal) {
+        if (err)
+            throw err;
+        console.log("finished");
+    });
+});
 app.get("/", (req, res) => {
-    let options = {
-        mode: "text",
-        pythonOptions: ["-u"],
-        args: ["1414", "2323"],
-    };
     const pyshell = new python_shell_1.PythonShell("./scripts/script.py");
     let result = "";
     pyshell.on("message", function (message) {
